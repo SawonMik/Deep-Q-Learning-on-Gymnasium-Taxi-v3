@@ -14,23 +14,22 @@ def run(episodes, is_training=True, render=False):
         q = pickle.load(f)
         f.close()
 
-    learning_rate_a = 0.9        # alpha or learning rate
-    discount_factor_g = 0.9      # gamma or discount rate. Near 0: more weight/reward placed on immediate state. Near 1: more on future state.
-    epsilon = 1                  # 1 = 100% random actions
-    epsilon_decay_rate = 0.0001  # epsilon decay rate. 1/0.0001 = 10,000
-    rng = np.random.default_rng()   # random number generator
-
+    learning_rate_a = 0.9        
+    discount_factor_g = 0.9      
+    epsilon = 1                  
+    epsilon_decay_rate = 0.0001  
+    rng = np.random.default_rng()  
     rewards_per_episode = np.zeros(episodes)
 
     for i in range(episodes):
-        state = env.reset()[0]   # states: 0 to 499 (25 taxi positions x 5 passenger locations x 4 destinations)
-        terminated = False       # True when passenger dropped off at correct destination
-        truncated = False        # True when actions > 200
+        state = env.reset()[0]   
+        terminated = False       
+        truncated = False        
         rewards = 0
 
         while(not terminated and not truncated):
             if is_training and rng.random() < epsilon:
-                action = env.action_space.sample()  # actions: 0=south,1=north,2=east,3=west,4=pickup,5=dropoff
+                action = env.action_space.sample()  
             else:
                 action = np.argmax(q[state,:])
 
