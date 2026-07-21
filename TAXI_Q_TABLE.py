@@ -65,4 +65,4 @@ def run(episodes, is_training=True, render=False):
         f.close()
 
 if __name__ == '__main__':
-    run(100, is_training=True, render=True)
+    run(20000, is_training=True, render=True)
